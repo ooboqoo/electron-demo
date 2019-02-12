@@ -1,0 +1,24 @@
+{
+  "name": "electron-demo",
+  "version": "1.0.0",
+  "description": "Electron Playground",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/electron": "^1.6.10"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ooboqoo/electron-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ooboqoo/electron-demo/issues"
+  },
+  "homepage": "https://github.com/ooboqoo/electron-demo#readme"
+}

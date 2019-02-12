@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Electron IPC 性能测试</title>
+  <style>
+  </style>
+</head>
+<body>
+  <h2>Electron IPC 性能测试</h2>
+  <button onclick="testSpeed()">开始测试</button>
+  <p>此 DEMO 用于测试两个渲染进程间(使用 ipc)通讯的性能</p>
+  <p>每个循环中消息中转过程: 渲染页面A --> Node.js --> 渲染页面B --> Node.js --> 渲染页面A</p>
+  <p>测试结果 (次循环/秒)</p>
+  <p class="result"></p>
+  <script>
+    const electron = require('electron')
+
+    function testSpeed () {
+      let count = 1
+      const startTime = Date.now()
+      const duration = 1000
+      electron.ipcRenderer.removeAllListeners('test-ipc-perf')
+      electron.ipcRenderer.on('test-ipc-perf', (event, msg) => {
+        if (Date.now() - startTime < duration) {
+          count++
+          electron.ipcRenderer.send('test-ipc-perf', {dstId: 2, srcId: 1})
+        } else {
+          const resElem = document.querySelector('.result')
+          resElem.innerHTML += '<br>' + count
+          testSpeed()
+        }
+      })
+      electron.ipcRenderer.send('test-ipc-perf', {dstId: 2, srcId: 1})
+    }
+  </script>
+</body>
+</html>
